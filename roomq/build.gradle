@@ -4,10 +4,11 @@ plugins {
 }
 
 group = 'com.github.redso'
-version '0.0.1-SNAPSHOT'
+version '0.0.1'
 
 repositories {
     mavenCentral()
+    maven { url "https://jitpack.io" }
 }
 
 dependencies {
@@ -18,6 +19,15 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
 
-test {
-    useJUnitPlatform()
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.redso
+                groupId = 'com.github.redso'
+                artifactId = 'roomq'
+                version = '0.0.1'
+            }
+        }
+    }
 }
