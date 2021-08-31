@@ -10,14 +10,20 @@ sourceCompatibility = '1.8'
 
 repositories {
     mavenCentral()
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-    implementation project(":roomq")
+//    implementation project(":roomq")
+    implementation 'com.github.redso:noq-java-sdk:0.0.1'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+bootJar {
+    enabled = false
 }
 
 test {
