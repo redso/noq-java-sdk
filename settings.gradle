@@ -1,2 +1,6 @@
 include 'roomq'
 project(":roomq").projectDir = file("roomq")
+
+if (!System.env.JITPACK)
+    include ':demo'
+
