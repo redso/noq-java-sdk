@@ -1,0 +1,2 @@
+include 'roomq'
+project(":roomq").projectDir = file("roomq")
