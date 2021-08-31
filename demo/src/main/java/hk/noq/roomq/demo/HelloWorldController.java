@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class HelloWorldController {
 
-  private RoomQ roomq = new RoomQ("clientID", "JWT Secret", "Ticket issuer", "Status Endpoint", false);
+  private RoomQ roomq = new RoomQ("mm-dev", "a234sd56f7g8h9", "https://roomq-ticket-issuer-qdjywctibq-df.a.run.app/tickets", "https://roomq-dev.noqstatus.com/api/rooms", true);
 
   @GetMapping("/hello-world")
   @ResponseBody
