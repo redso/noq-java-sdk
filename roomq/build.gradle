@@ -1,8 +1,9 @@
 plugins {
     id 'java'
 }
+apply plugin: 'maven-publish'
 
-group 'hk.noq'
+group = 'com.github.redso'
 version '0.0.1-SNAPSHOT'
 
 repositories {
