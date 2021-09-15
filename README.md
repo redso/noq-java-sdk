@@ -47,8 +47,6 @@ To integrate with the SDK, you need to have the following information provided b
 2.  ROOM_SECRET
 3.  ROOMQ_TICKET_ISSUER
 4.  ROOMQ_STATUS_API
-5.  API_KEY
-6.  LOCKER_URL
 
 ### Major steps
 
@@ -91,6 +89,9 @@ public class HelloWorldController {
   public String sayHello(HttpServletRequest request, HttpServletResponse response) {
     ValidationResult result = roomq.validate(request, response, null, null);
     if (result.needRedirect()) {
+      response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate, max-age=0");
+      response.setHeader("Pragma", "no-cache");
+      response.setHeader("Expires", "Fri, 01 Jan 1990 00:00:00 GMT");
       response.setHeader("Location", result.getRedirectURL());
       response.setStatus(302);
       return null;
