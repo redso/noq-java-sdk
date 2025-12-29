@@ -16,7 +16,7 @@ Step 2. Add the dependency
 
 ```groovy
 dependencies {
-  implementation 'com.github.redso:noq-java-sdk:0.0.10'
+  implementation 'com.github.redso:noq-java-sdk:1.21.0'
 }
 ```
 
