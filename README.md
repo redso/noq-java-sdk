@@ -16,7 +16,7 @@ Step 2. Add the dependency
 
 ```groovy
 dependencies {
-  implementation 'com.github.redso:noq-java-sdk:1.21.0'
+  implementation 'com.github.redso:noq-java-sdk:1.22.0'
 }
 ```
 
@@ -28,12 +28,12 @@ The [RoomQ](https://www.noq.hk/en/roomq) Backend SDK is used for server-side int
 
 ![The SDK Flow](https://raw.githubusercontent.com/redso/roomq.backend-sdk.nodejs/master/RoomQ-Backend-SDK-JS-high-level-logic-diagram.png)
 
-1.  End user requests a page on your server
-2.  The SDK verify if the request contain a valid ticket and in Serving state. If not, the SDK send him to the queue.
-3.  End user obtain a ticket and wait in the queue until the ticket turns into Serving state.
-4.  End user is redirected back to your website, now with a valid ticket
-5.  The SDK verify if the request contain a valid ticket and in Serving state. End user stay in the requested page.
-6.  The end user browses to a new page, and the SDK continue to check if the ticket is valid.
+1. End user requests a page on your server
+2. The SDK verify if the request contain a valid ticket and in Serving state. If not, the SDK send him to the queue.
+3. End user obtain a ticket and wait in the queue until the ticket turns into Serving state.
+4. End user is redirected back to your website, now with a valid ticket
+5. The SDK verify if the request contain a valid ticket and in Serving state. End user stay in the requested page.
+6. The end user browses to a new page, and the SDK continue to check if the ticket is valid.
 
 ## How to integrate
 
@@ -41,21 +41,21 @@ The [RoomQ](https://www.noq.hk/en/roomq) Backend SDK is used for server-side int
 
 To integrate with the SDK, you need to have the following information provided by RoomQ
 
-1.  ROOM_ID
-2.  ROOM_SECRET
-3.  ROOMQ_TICKET_ISSUER
-4.  ROOMQ_STATUS_API
+1. ROOM_ID
+2. ROOM_SECRET
+3. ROOMQ_TICKET_ISSUER
+4. ROOMQ_STATUS_API
 
 ### Major steps
 
 To validate that the end user is allowed to access your site (has been through the queue) these steps are needed:
 
-1.  Initialise RoomQ
-2.  Determine if the current request page/path required to be protected by RoomQ
-3.  Initialise Http Context Provider
-4.  Validate the request
-5.  If the end user should goes to the queue, set cache control
-6.  Redirect user to queue
+1. Initialise RoomQ
+2. Determine if the current request page/path required to be protected by RoomQ
+3. Initialise Http Context Provider
+4. Validate the request
+5. If the end user should goes to the queue, set cache control
+6. Redirect user to queue
 
 ### Integration on specific path
 
