@@ -1,7 +1,5 @@
 # Install
 
-> Download the latest composer package from [here.](https://packagist.org/packages/noq/roomq)
-
 Step 1. Add the JitPack repository to your build file
 
 Add it in your root build.gradle at the end of repositories:
