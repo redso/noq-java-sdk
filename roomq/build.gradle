@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'com.github.redso'
-version '1.22.0'
+version '1.23.0'
 
 repositories {
     mavenCentral()
@@ -12,9 +12,9 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.auth0:java-jwt:3.18.1'
-    implementation 'org.json:json:20180130'
-    implementation 'javax.servlet:javax.servlet-api:3.0.1'
+    implementation 'com.auth0:java-jwt:4.5.0'
+    implementation 'org.json:json:20240303'
+    implementation 'jakarta.servlet:jakarta.servlet-api:6.0.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
