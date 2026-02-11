@@ -62,6 +62,33 @@ To validate that the end user is allowed to access your site (has been through t
 It is recommended to integrate on the page/path which are selected to be provided. For the static files, e.g. images, css files, js files, ..., it is recommended to be skipped from the validation.
 You can determine the requests type before pass it to the validation.
 
+## Cookie Configuration
+
+By default, the SDK sets only `maxAge` (12 hours) on cookies. You can customize cookie attributes by passing a `CookieConfig` to the `RoomQ` constructor:
+
+```java
+CookieConfig cookieConfig = new CookieConfig();
+cookieConfig.setHttpOnly(true);
+cookieConfig.setSecure(true);
+cookieConfig.setPath("/");
+cookieConfig.setDomain(".example.com");
+cookieConfig.setSameSite("Lax");
+cookieConfig.setMaxAge(8 * 60 * 60); // 8 hours
+
+RoomQ roomq = new RoomQ("clientID", "JWT Secret", "Ticket issuer", "Status Endpoint", false, cookieConfig);
+```
+
+| Attribute  | Type      | Default         | Description                                      |
+|------------|-----------|-----------------|--------------------------------------------------|
+| `maxAge`   | `int`     | `43200` (12h)   | Cookie max age in seconds                        |
+| `httpOnly` | `Boolean` | `null` (not set)| Set `true` to prevent client-side script access   |
+| `secure`   | `Boolean` | `null` (not set)| Set `true` to send cookie only over HTTPS         |
+| `path`     | `String`  | `null` (not set)| Cookie path scope                                |
+| `domain`   | `String`  | `null` (not set)| Cookie domain scope                              |
+| `sameSite` | `String`  | `null` (not set)| `"Strict"`, `"Lax"`, or `"None"`                  |
+
+When an attribute is `null`, it is not explicitly set on the cookie, preserving the default servlet container behavior.
+
 ## Implementation Example
 
 The following is an RoomQ integration example in java.
