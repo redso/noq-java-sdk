@@ -19,6 +19,7 @@ public class RoomQ {
   private final String tokenName;
   private String token;
   private final boolean debug;
+  private CookieConfig cookieConfig = new CookieConfig();
 
   public RoomQ(String clientID, String jwtSecret, String ticketIssuer, String statusEndpoint, boolean debug) {
     this.clientID = clientID;
@@ -27,6 +28,11 @@ public class RoomQ {
     this.statusEndpoint = statusEndpoint;
     this.debug = debug;
     this.tokenName = "be_roomq_t_" + clientID;
+  }
+
+  public RoomQ(String clientID, String jwtSecret, String ticketIssuer, String statusEndpoint, boolean debug, CookieConfig cookieConfig) {
+    this(clientID, jwtSecret, ticketIssuer, statusEndpoint, debug);
+    this.cookieConfig = cookieConfig;
   }
 
   public Locker getLocker(HttpServletRequest request, String apiKey, String url)
@@ -86,9 +92,7 @@ public class RoomQ {
       debugPrint("generating new jwt " + token);
     }
 
-    Cookie cookie = new Cookie(tokenName, token);
-    cookie.setMaxAge(12 * 60 * 60);
-    response.addCookie(cookie);
+    response.addCookie(createTokenCookie(token));
     if (needRedirect) {
       return redirectToTicketIssuer(token, returnURL != null ? returnURL : currentURL);
     } else {
@@ -108,9 +112,7 @@ public class RoomQ {
 
       Map<String, Object> res = Utils.sendHTTPRequest("POST", "https://" + backend + "/queue/" + clientID, data);
       token = (String) res.get("id");
-      Cookie cookie = new Cookie(tokenName, token);
-      cookie.setMaxAge(12 * 60 * 60);
-      response.addCookie(cookie);
+      response.addCookie(createTokenCookie(token));
     } catch (HTTPRequestException e) {
       if (e.getStatusCode() == 401) {
         throw new InvalidTokenException();
@@ -148,9 +150,7 @@ public class RoomQ {
 
       Map<String, Object> res = Utils.sendHTTPRequest("POST", "https://" + backend + "/queue/" + clientID, data);
       token = (String) res.get("id");
-      Cookie cookie = new Cookie(tokenName, token);
-      cookie.setMaxAge(12 * 60 * 60);
-      response.addCookie(cookie);
+      response.addCookie(createTokenCookie(token));
     } catch (HTTPRequestException e) {
       if (e.getStatusCode() == 401) {
         throw new InvalidTokenException();
@@ -159,6 +159,17 @@ public class RoomQ {
       }
       throw e;
     }
+  }
+
+  private Cookie createTokenCookie(String token) {
+    Cookie cookie = new Cookie(tokenName, token);
+    cookie.setMaxAge(cookieConfig.getMaxAge());
+    if (cookieConfig.getHttpOnly() != null) cookie.setHttpOnly(cookieConfig.getHttpOnly());
+    if (cookieConfig.getSecure() != null) cookie.setSecure(cookieConfig.getSecure());
+    if (cookieConfig.getPath() != null) cookie.setPath(cookieConfig.getPath());
+    if (cookieConfig.getDomain() != null) cookie.setDomain(cookieConfig.getDomain());
+    if (cookieConfig.getSameSite() != null) cookie.setAttribute("SameSite", cookieConfig.getSameSite());
+    return cookie;
   }
 
   private String getBackend() throws QueueStoppedException, HTTPRequestException {
