@@ -19,19 +19,20 @@ public class RoomQ {
   private final String tokenName;
   private String token;
   private final boolean debug;
-  private CookieConfig cookieConfig = new CookieConfig();
+  private final CookieConfig cookieConfig;
 
   public RoomQ(String clientID, String jwtSecret, String ticketIssuer, String statusEndpoint, boolean debug) {
+    this(clientID, jwtSecret, ticketIssuer, statusEndpoint, debug, new CookieConfig());
+  }
+
+  public RoomQ(String clientID, String jwtSecret, String ticketIssuer, String statusEndpoint, boolean debug, CookieConfig cookieConfig) {
+    if (cookieConfig == null) throw new IllegalArgumentException("cookieConfig must not be null");
     this.clientID = clientID;
     this.jwtSecret = jwtSecret;
     this.ticketIssuer = ticketIssuer;
     this.statusEndpoint = statusEndpoint;
     this.debug = debug;
     this.tokenName = "be_roomq_t_" + clientID;
-  }
-
-  public RoomQ(String clientID, String jwtSecret, String ticketIssuer, String statusEndpoint, boolean debug, CookieConfig cookieConfig) {
-    this(clientID, jwtSecret, ticketIssuer, statusEndpoint, debug);
     this.cookieConfig = cookieConfig;
   }
 
